@@ -6,12 +6,195 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="./dev/css/main.css">
+    <script src="./dev/JS/lib/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./dev/JS/lib/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./dev/JS/lib/chart.js/dist/Chart.min.css">
+
 </head>
 
 <body>
+    <div class="container">
+        <br>
+        <div class="alert alert-primary" role="alert">
+            <div class="row">
+                <div class="col-5">
+                    <small>
+                    Estudiante: <strong>Leonardo Gonzalez Gutierrez</strong> <br> Automatización y control del procesos <br> Universidad de Caldas
 
-    <h1>Leonardo</h1>
+                   </small>
 
+                    <hr class="dashed">
+                    <div class="row">
+                        <h2>Prototipo de dispositivo de biotelemetría para equipo de rescate</h2>
+                        <div class="col">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <button id="showPulse" type="button" class="btn btn-danger">Pulso</button>
+                                <button id="showTemp" type="button" class="btn btn-primary">Temperatura</button>
+                                <button id="showOxygen" type="button" class="btn btn-info">Oxigeno</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="contenedor">
+
+                        <div id="mapa" style="width:300px; height: 200px;">
+                            <span class="mensaje">Da click en el botón para indicarte tu ubicación</span>
+                        </div>
+                        <a class="ubicar" href="" title="">Encuentra mi ubicación</a>
+
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="MyClockDisplay" class="clock" onload="showTime()">oe</div>
+                    <span class="material-icons md-48">location_on</span><br>
+                    <span class="longitud"></span><br>
+                    <span class="latitud"></span><br>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <br><br>
+                <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
+            </div>
+            <div class="col-9">
+                <canvas id="myCanvas" style="width:800px; height: 350px;"></canvas>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="./dev/JS/lib/chart.js/dist/Chart.min.js"></script>
+
+    <script>
+        function showTime() {
+            var date = new Date();
+            var h = date.getHours(); // 0 - 23
+            var m = date.getMinutes(); // 0 - 59
+            var s = date.getSeconds(); // 0 - 59
+            var session = "AM";
+
+            if (h == 0) {
+                h = 12;
+            }
+
+            if (h > 12) {
+                h = h - 12;
+                session = "PM";
+            }
+
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+            setTimeout(showTime, 1000);
+
+        }
+        showTime();
+        /*------------------------------------------------------------------------------------*/
+
+        var enlace = jQuery('.ubicar');
+        var longitud = jQuery('.longitud');
+        var latitud = jQuery('.latitud');
+        var mensaje = jQuery('.mensaje');
+
+        if (navigator.geolocation) {
+            enlace.click(function(e) {
+                e.preventDefault();
+                mensaje.html("Cargando...");
+                navigator.geolocation.getCurrentPosition(insertarUbicacion, errorUbicacion);
+            });
+        } else {
+            alert('Lo sentimos, tu navegador no soporta geolocation');
+        }
+
+        function insertarUbicacion(posicion) {
+            // Obtenemos las propiedades de geolocation y las guardamos en las variables
+            var glatitud = posicion.coords.latitude;
+            var glongitud = posicion.coords.longitude;
+
+            // Insertar el mapa de google en un iframe
+            jQuery('#mapa').html('<iframe width="300" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/?ie=UTF8&amp;ll=' + glatitud + ',' + glongitud + '&amp;spn=0.332359,0.617294&amp;t=m&amp;z=11&amp;output=embed"></iframe>');
+
+            longitud.html('Longitud: ' + glongitud);
+            latitud.html('Latitud: ' + glatitud);
+
+            //Hacemos una llamada ajax a la API de Google Maps para obtener el mapa de la ubicación
+            jQuery.ajax({
+                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + glatitud + ',' + glongitud + '&sensor=true',
+                type: 'POST',
+                dataType: 'json',
+                error: function(xhr, textStatus, errorThrown) {
+                    errorUbicacion();
+                }
+            });
+
+        }
+
+        function errorUbicacion() {
+            alert('No pudimos encontrar tu ubicación exacta');
+        }
+
+
+        //------------------------------------ CHART.JS
+        var ctx = document.getElementById('myCanvas').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+
+
+    <!--Se necesita conexión a Internet-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js" integrity="sha256-uVEHWRIr846/vAdLJeybWxjPNStREzOlqLMXjW/Saeo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" charset="utf-8"></script>
 
     <script type="text/javascript">

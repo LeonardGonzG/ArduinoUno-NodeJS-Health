@@ -11,6 +11,7 @@ const io = require('socket.io')(server, { cors: { origing: "*" } });
 
 // static files
 //app.use(express.static(path.join(__dirname, 'public')));
+app.use('/dev', express.static('dev'))
 
 const mySerial = new SerialPort(
     'COM4', {
