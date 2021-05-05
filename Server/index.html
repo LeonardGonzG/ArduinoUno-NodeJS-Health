@@ -15,6 +15,10 @@
 
     <link rel="stylesheet" type="text/css" href="./dev/JS/lib/chart.js/dist/Chart.min.css">
 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+
 </head>
 
 <body>
@@ -64,21 +68,172 @@
         </div>
 
         <div class="row">
-            <div class="col-3">
-                <br><br>
-                <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
+
+            <div class="col-4 ">
+
+                <img src="./dev/img/peopleHeartRate.jpg" alt="..." class="img-thumbnail">
+                <br>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button id="btn-abrir-popup" type="button" class="btn-abrir-popup btn btn-danger btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                      </svg>&nbsp;&nbsp;Ritmo cardiaco</button>
+                </div>
+
+
+
             </div>
-            <div class="col-9">
-                <canvas id="myCanvas" style="width:800px; height: 350px;"></canvas>
+            <div class="col-4">
+                <img src="./dev/img/peopleOxigen.png" alt="..." class="img-thumbnail">
+                <br>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button id="btn-abrir-popup-2" type="button" class="btn-abrir-popup btn btn-primary btn-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-clouds" viewBox="0 0 16 16">
+                            <path d="M16 7.5a2.5 2.5 0 0 1-1.456 2.272 3.513 3.513 0 0 0-.65-.824 1.5 1.5 0 0 0-.789-2.896.5.5 0 0 1-.627-.421 3 3 0 0 0-5.22-1.625 5.587 5.587 0 0 0-1.276.088 4.002 4.002 0 0 1 7.392.91A2.5 2.5 0 0 1 16 7.5z"/>
+                            <path d="M7 5a4.5 4.5 0 0 1 4.473 4h.027a2.5 2.5 0 0 1 0 5H3a3 3 0 0 1-.247-5.99A4.502 4.502 0 0 1 7 5zm3.5 4.5a3.5 3.5 0 0 0-6.89-.873.5.5 0 0 1-.51.375A2 2 0 1 0 3 13h8.5a1.5 1.5 0 1 0-.376-2.953.5.5 0 0 1-.624-.492V9.5z"/>
+                          </svg>
+                        &nbsp;&nbsp;Oxigeno</button>
+                </div>
+            </div>
+            <div class="col-4">
+                <img src="./dev/img/peopleTemperature.jpg" alt="..." class="img-thumbnail">
+                <br>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button id="btn-abrir-popup-3" type="button" class="btn-abrir-popup btn btn-info btn-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-thermometer-half" viewBox="0 0 16 16">
+                            <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415z"/>
+                            <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1z"/>
+                          </svg>
+                        &nbsp;&nbsp;Temperatura</button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="overlay" id="overlay">
+            <div class="popup" id="popup">
+                <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="fas fa-times"></i></a>
+                <!--  Información de ritmo cardiaco-->
+                <div id="dataHeartRate" class="d-none">
+                    <!-- d-block -->
+                    <h3><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                      </svg>&nbsp;&nbsp;RITMO CARDIACO</h3>
+                    <h4>Sensor M....</h4>
+                    <div class="row">
+                        <div class="col-3">
+                            <br><br>
+                            <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
+                        </div>
+                        <div class="col-9">
+                            <canvas id="myCanvas" style="width:800px; height: 350px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dataOxygen" class="d-none">
+                    <h1>Oxigeno</h1>
+
+                </div>
+
+
+                <div id="dataTemperature" class="d-none">
+                    <h1>Temperatura</h1>
+
+                </div>
+
             </div>
         </div>
 
 
+
+        <br><br>
+        <footer class="bg-light text-center text-lg-start">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-dark" href="#">Leonardo Gonzalez Gutierrez</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
     </div>
+
+
 
     <script src="./dev/JS/lib/chart.js/dist/Chart.min.js"></script>
 
     <script>
+        var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
+            overlay = document.getElementById('overlay'),
+            popup = document.getElementById('popup'),
+            btnCerrarPopup = document.getElementById('btn-cerrar-popup');
+
+        var btnAbrirPopup2 = document.getElementById('btn-abrir-popup-2');
+        var btnAbrirPopup3 = document.getElementById('btn-abrir-popup-3');
+
+        var sectionHeart = document.getElementById('dataHeartRate');
+        var sectionOxygen = document.getElementById('dataOxygen');
+        var sectionTemperature = document.getElementById('dataTemperature');
+
+        btnAbrirPopup.addEventListener('click', function() {
+            overlay.classList.add('active');
+            popup.classList.add('active');
+
+            sectionHeart.classList.remove('d-none');
+            sectionHeart.classList.add('d-block');
+
+            sectionOxygen.classList.remove('d-none');
+            sectionOxygen.classList.add('d-none');
+
+            sectionTemperature.classList.remove('d-none');
+            sectionTemperature.classList.add('d-none');
+
+        });
+        btnAbrirPopup2.addEventListener('click', function() {
+            overlay.classList.add('active');
+            popup.classList.add('active');
+
+            sectionHeart.classList.remove('d-none');
+            sectionHeart.classList.add('d-none');
+
+            sectionOxygen.classList.remove('d-none');
+            sectionOxygen.classList.add('d-block');
+
+            sectionTemperature.classList.remove('d-none');
+            sectionTemperature.classList.add('d-none');
+
+        });
+
+        btnAbrirPopup3.addEventListener('click', function() {
+            overlay.classList.add('active');
+            popup.classList.add('active');
+
+            sectionHeart.classList.remove('d-none');
+            sectionHeart.classList.add('d-none');
+
+            sectionOxygen.classList.remove('d-none');
+            sectionOxygen.classList.add('d-none');
+
+            sectionTemperature.classList.remove('d-none');
+            sectionTemperature.classList.add('d-block');
+        });
+
+
+
+        btnCerrarPopup.addEventListener('click', function(e) {
+            e.preventDefault();
+            overlay.classList.remove('active');
+            popup.classList.remove('active');
+        });
+
+
+
+        ////---------------------------
         function showTime() {
             var date = new Date();
             var h = date.getHours(); // 0 - 23
