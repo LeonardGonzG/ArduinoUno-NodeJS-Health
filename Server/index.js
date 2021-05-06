@@ -38,8 +38,17 @@ mySerial.on('open', function() {
 mySerial.on('data', function(line) {
     console.log(line.toString());
     io.emit('arduino:data', {
-        value: JSON.stringify("{" + line.toString() + "}") ///<<<<<<-----------------PENDIENTE POR PASAR A json
+        value: JSON.stringify("{" + line.toString() + "}")
     });
+});
+
+mySerial.on('close', function(e) {
+    console.log('Puerto cerrado');
+
+    io.emit('arduino:close', {
+        value: true
+    });
+
 });
 
 mySerial.on('error', function(err) {
