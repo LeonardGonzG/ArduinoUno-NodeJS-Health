@@ -12,12 +12,16 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="./dev/JS/lib/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./dev/JS/lib/chart.js/dist/Chart.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <!--
+        <link rel="stylesheet" href="./dev/css/lib/all.css">
+-->
 
 </head>
 
@@ -29,12 +33,21 @@
           </video>
         <div class="content">
             <h1>Prototipo de dispositivo de biotelemetría para equipo de rescate</h1>
-            <p>Leonardo Gonzalez Gutierrez</p>
-            <button id="goDevice">Ir</button>
+            <p>Autor. Leonardo Gonzalez Gutierrez</p>
+            <p>Programa. Ingeniería en Sistemas y Computación</p>
+            <p>Universidad de Caldas</p>
+            <button id="goDevice">Conectar</button>
         </div>
     </div>
 
+    <div class="containerPage d-none" id="containerPage">
+        <br><br><br><br><br>
+        <div class="d-flex justify-content-center"> <img src="./dev/img/rolling.gif" alt="" srcset=""></div>
 
+        <div class="preloader">
+            <p>Conectando...</p>
+        </div>
+    </div>
 
     <div id="beforeHome">
 
@@ -212,8 +225,27 @@
                 </div>
 
 
+                <h3>Información</h3>
+                <button class="accordion"><strong>Ritmo Cardiaco</strong></button>
+                <div class="panelAccordion">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <br>
+                <button class="accordion"><strong>Saturación</strong></button>
+                <div class="panelAccordion">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <br>
+                <button class="accordion"><strong>Temperatura corporal y ambiental</strong></button>
+                <div class="panelAccordion">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+
+
+
             </div>
             <br>
+
 
             <footer class="bg-light text-center text-lg-start">
                 <!-- Copyright -->
@@ -231,767 +263,827 @@
 
 
     <script src="./dev/JS/lib/chart.js/dist/Chart.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
+    <script src="./dev/JS/lib/HighChart/highcharts.js"></script>
+    <script src="./dev/JS/lib/HighChart/highcharts-more.js"></script>
+    <script src="./dev/JS/lib/HighChart/exporting.js"></script>
 
+    <!--
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-more.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    -->
 
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="./dev/JS/lib/HighChart/solid-gauge.js"></script>
+    <script src="./dev/JS/lib/HighChart/export-data.js"></script>
+    <script src="./dev/JS/lib/HighChart/accessibility.js"></script>
+
+    <!--
+        <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    -->
+
 
     <script>
-        var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
-            overlay = document.getElementById('overlay'),
-            popup = document.getElementById('popup'),
-            btnCerrarPopup = document.getElementById('btn-cerrar-popup');
-
-        var btnAbrirPopup2 = document.getElementById('btn-abrir-popup-2');
-        var btnAbrirPopup3 = document.getElementById('btn-abrir-popup-3');
-
-        var sectionHeart = document.getElementById('dataHeartRate');
-        var sectionOxygen = document.getElementById('dataOxygen');
-        var sectionTemperature = document.getElementById('dataTemperature');
-
-        var btnAbrirApp = document.getElementById('goDevice');
-        var sectionDevice = document.getElementById('deviceConected');
-        var sectionHome = document.getElementById('home');
+        $(document).ready(function() {
 
 
-        btnAbrirApp.addEventListener('click', function() {
-            sectionDevice.classList.remove('d-none');
-            sectionDevice.classList.add('d-block');
+            accordionShow();
 
-            sectionHome.classList.remove('d-block');
-            sectionHome.classList.add('d-none');
-        });
+            function accordionShow() {
 
+                var acc = document.getElementsByClassName("accordion");
+                var i;
 
-        btnAbrirPopup.addEventListener('click', function() {
-            overlay.classList.add('active');
-            popup.classList.add('active');
-
-            sectionHeart.classList.remove('d-none');
-            sectionHeart.classList.add('d-block');
-
-            sectionOxygen.classList.remove('d-none');
-            sectionOxygen.classList.add('d-none');
-
-            sectionTemperature.classList.remove('d-none');
-            sectionTemperature.classList.add('d-none');
-
-        });
-        btnAbrirPopup2.addEventListener('click', function() {
-            overlay.classList.add('active');
-            popup.classList.add('active');
-
-            sectionHeart.classList.remove('d-none');
-            sectionHeart.classList.add('d-none');
-
-            sectionOxygen.classList.remove('d-none');
-            sectionOxygen.classList.add('d-block');
-
-            sectionTemperature.classList.remove('d-none');
-            sectionTemperature.classList.add('d-none');
-
-        });
-
-        btnAbrirPopup3.addEventListener('click', function() {
-            overlay.classList.add('active');
-            popup.classList.add('active');
-
-            sectionHeart.classList.remove('d-none');
-            sectionHeart.classList.add('d-none');
-
-            sectionOxygen.classList.remove('d-none');
-            sectionOxygen.classList.add('d-none');
-
-            sectionTemperature.classList.remove('d-none');
-            sectionTemperature.classList.add('d-block');
-        });
-
-
-
-        btnCerrarPopup.addEventListener('click', function(e) {
-            e.preventDefault();
-            overlay.classList.remove('active');
-            popup.classList.remove('active');
-        });
-
-
-
-        ////---------------------------
-        function showTime() {
-            var date = new Date();
-            var h = date.getHours(); // 0 - 23
-            var m = date.getMinutes(); // 0 - 59
-            var s = date.getSeconds(); // 0 - 59
-            var session = "AM";
-
-            if (h == 0) {
-                h = 12;
+                for (i = 0; i < acc.length; i++) {
+                    acc[i].addEventListener("click", function() {
+                        this.classList.toggle("activeAccordion");
+                        var panelAccordion = this.nextElementSibling;
+                        if (panelAccordion.style.maxHeight) {
+                            panelAccordion.style.maxHeight = null;
+                        } else {
+                            panelAccordion.style.maxHeight = panelAccordion.scrollHeight + "px";
+                        }
+                    });
+                }
             }
 
-            if (h > 12) {
-                h = h - 12;
-                session = "PM";
-            }
 
-            h = (h < 10) ? "0" + h : h;
-            m = (m < 10) ? "0" + m : m;
-            s = (s < 10) ? "0" + s : s;
 
-            var time = h + ":" + m + ":" + s + " " + session;
-            document.getElementById("MyClockDisplay").innerText = time;
-            document.getElementById("MyClockDisplay").textContent = time;
-            setTimeout(showTime, 1000);
 
-        }
-        showTime();
-        /*------------------------------------------------------------------------------------*/
 
-        var enlace = jQuery('.ubicar');
-        var longitud = jQuery('.longitud');
-        var latitud = jQuery('.latitud');
-        var mensaje = jQuery('.mensaje');
+            var btnAbrirPopup = document.getElementById('btn-abrir-popup'),
+                overlay = document.getElementById('overlay'),
+                popup = document.getElementById('popup'),
+                btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 
-        if (navigator.geolocation) {
-            enlace.click(function(e) {
+            var btnAbrirPopup2 = document.getElementById('btn-abrir-popup-2');
+            var btnAbrirPopup3 = document.getElementById('btn-abrir-popup-3');
+
+            var sectionHeart = document.getElementById('dataHeartRate');
+            var sectionOxygen = document.getElementById('dataOxygen');
+            var sectionTemperature = document.getElementById('dataTemperature');
+
+            var btnAbrirApp = document.getElementById('goDevice');
+            var sectionDevice = document.getElementById('deviceConected');
+            var sectionHome = document.getElementById('home');
+
+
+            btnAbrirApp.addEventListener('click', function() {
+
+                let container = document.getElementById('containerPage');
+                container.classList.remove('d-none');
+                container.classList.add('d-block');
+
+                setTimeout(function() {
+                    container.classList.remove('d-block');
+                    container.classList.add('d-none');
+
+                    sectionDevice.classList.remove('d-none');
+                    sectionDevice.classList.add('d-block');
+
+                    alert('Nos hemos conectado con el dispositivo. Bienvenido!');
+                    // document.body.style.overflowY = "visible"; // despueés de cargar le devolvemos el scroll
+                }, 5000);
+
+
+                sectionHome.classList.remove('d-block');
+                sectionHome.classList.add('d-none');
+
+            });
+
+
+            btnAbrirPopup.addEventListener('click', function() {
+                overlay.classList.add('active');
+                popup.classList.add('active');
+
+                sectionHeart.classList.remove('d-none');
+                sectionHeart.classList.add('d-block');
+
+                sectionOxygen.classList.remove('d-none');
+                sectionOxygen.classList.add('d-none');
+
+                sectionTemperature.classList.remove('d-none');
+                sectionTemperature.classList.add('d-none');
+
+            });
+            btnAbrirPopup2.addEventListener('click', function() {
+                overlay.classList.add('active');
+                popup.classList.add('active');
+
+                sectionHeart.classList.remove('d-none');
+                sectionHeart.classList.add('d-none');
+
+                sectionOxygen.classList.remove('d-none');
+                sectionOxygen.classList.add('d-block');
+
+                sectionTemperature.classList.remove('d-none');
+                sectionTemperature.classList.add('d-none');
+
+            });
+
+            btnAbrirPopup3.addEventListener('click', function() {
+                overlay.classList.add('active');
+                popup.classList.add('active');
+
+                sectionHeart.classList.remove('d-none');
+                sectionHeart.classList.add('d-none');
+
+                sectionOxygen.classList.remove('d-none');
+                sectionOxygen.classList.add('d-none');
+
+                sectionTemperature.classList.remove('d-none');
+                sectionTemperature.classList.add('d-block');
+            });
+
+
+
+            btnCerrarPopup.addEventListener('click', function(e) {
                 e.preventDefault();
-                mensaje.html("Cargando...");
-                navigator.geolocation.getCurrentPosition(insertarUbicacion, errorUbicacion);
+                overlay.classList.remove('active');
+                popup.classList.remove('active');
             });
-        } else {
-            alert('Lo sentimos, tu navegador no soporta geolocation');
-        }
 
-        function insertarUbicacion(posicion) {
-            // Obtenemos las propiedades de geolocation y las guardamos en las variables
-            var glatitud = posicion.coords.latitude;
-            var glongitud = posicion.coords.longitude;
 
-            // Insertar el mapa de google en un iframe
-            jQuery('#mapa').html('<iframe width="300" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/?ie=UTF8&amp;ll=' + glatitud + ',' + glongitud + '&amp;spn=0.332359,0.617294&amp;t=m&amp;z=11&amp;output=embed"></iframe>');
 
-            longitud.html('Longitud: ' + glongitud);
-            latitud.html('Latitud: ' + glatitud);
+            ////---------------------------
+            function showTime() {
+                var date = new Date();
+                var h = date.getHours(); // 0 - 23
+                var m = date.getMinutes(); // 0 - 59
+                var s = date.getSeconds(); // 0 - 59
+                var session = "AM";
 
-            //Hacemos una llamada ajax a la API de Google Maps para obtener el mapa de la ubicación
-            jQuery.ajax({
-                url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + glatitud + ',' + glongitud + '&sensor=true',
-                type: 'POST',
-                dataType: 'json',
-                error: function(xhr, textStatus, errorThrown) {
-                    errorUbicacion();
+                if (h == 0) {
+                    h = 12;
                 }
-            });
 
-        }
+                if (h > 12) {
+                    h = h - 12;
+                    session = "PM";
+                }
 
-        function errorUbicacion() {
-            alert('No pudimos encontrar tu ubicación exacta');
-        }
+                h = (h < 10) ? "0" + h : h;
+                m = (m < 10) ? "0" + m : m;
+                s = (s < 10) ? "0" + s : s;
 
-        //---------------------------------------Vekocimetro/RitmoCardiaco
-        var dataVel = 0;
-        Highcharts.chart('container', {
+                var time = h + ":" + m + ":" + s + " " + session;
+                document.getElementById("MyClockDisplay").innerText = time;
+                document.getElementById("MyClockDisplay").textContent = time;
+                setTimeout(showTime, 1000);
 
+            }
+            showTime();
+            /*------------------------------------------------------------------------------------*/
+
+            var enlace = jQuery('.ubicar');
+            var longitud = jQuery('.longitud');
+            var latitud = jQuery('.latitud');
+            var mensaje = jQuery('.mensaje');
+
+            if (navigator.geolocation) {
+                enlace.click(function(e) {
+                    e.preventDefault();
+                    mensaje.html("Cargando...");
+                    navigator.geolocation.getCurrentPosition(insertarUbicacion, errorUbicacion);
+                });
+            } else {
+                alert('Lo sentimos, tu navegador no soporta geolocation');
+            }
+
+            function insertarUbicacion(posicion) {
+                // Obtenemos las propiedades de geolocation y las guardamos en las variables
+                var glatitud = posicion.coords.latitude;
+                var glongitud = posicion.coords.longitude;
+
+                // Insertar el mapa de google en un iframe
+                jQuery('#mapa').html('<iframe width="300" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/?ie=UTF8&amp;ll=' + glatitud + ',' + glongitud + '&amp;spn=0.332359,0.617294&amp;t=m&amp;z=11&amp;output=embed"></iframe>');
+
+                longitud.html('Longitud: ' + glongitud);
+                latitud.html('Latitud: ' + glatitud);
+
+                //Hacemos una llamada ajax a la API de Google Maps para obtener el mapa de la ubicación
+                jQuery.ajax({
+                    url: 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + glatitud + ',' + glongitud + '&sensor=true',
+                    type: 'POST',
+                    dataType: 'json',
+                    error: function(xhr, textStatus, errorThrown) {
+                        errorUbicacion();
+                    }
+                });
+
+            }
+
+            function errorUbicacion() {
+                alert('No pudimos encontrar tu ubicación exacta');
+            }
+
+            //---------------------------------------Vekocimetro/RitmoCardiaco
+            var dataVel = 0;
+            Highcharts.chart('container', {
+
+                    chart: {
+                        type: 'gauge',
+                        plotBackgroundColor: null,
+                        plotBackgroundImage: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false
+                    },
+
+                    title: {
+                        text: 'Velocimentro/Ritmo cardiaco'
+                    },
+
+                    pane: {
+                        startAngle: -150,
+                        endAngle: 150,
+                        background: [{
+                            backgroundColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, '#FFF'],
+                                    [1, '#333']
+                                ]
+                            },
+                            borderWidth: 0,
+                            outerRadius: '109%'
+                        }, {
+                            backgroundColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, '#333'],
+                                    [1, '#FFF']
+                                ]
+                            },
+                            borderWidth: 1,
+                            outerRadius: '107%'
+                        }, {
+                            // default background
+                        }, {
+                            backgroundColor: '#DDD',
+                            borderWidth: 0,
+                            outerRadius: '105%',
+                            innerRadius: '103%'
+                        }]
+                    },
+
+                    // the value axis
+                    yAxis: {
+                        min: 0,
+                        max: 130,
+
+                        minorTickInterval: 'auto',
+                        minorTickWidth: 1,
+                        minorTickLength: 10,
+                        minorTickPosition: 'inside',
+                        minorTickColor: '#666',
+
+                        tickPixelInterval: 30,
+                        tickWidth: 2,
+                        tickPosition: 'inside',
+                        tickLength: 10,
+                        tickColor: '#666',
+                        labels: {
+                            step: 2,
+                            rotation: 'auto'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        plotBands: [{
+                            from: 0,
+                            to: 15,
+                            color: '#55BF3B' // red
+
+                        }, {
+                            from: 15,
+                            to: 35,
+                            color: '#DDDF0D' // yellow
+                        }, {
+                            from: 35,
+                            to: 50,
+                            color: '#DF5353' // greencolor: '#55BF3B' // red
+                        }]
+                    },
+
+                    series: [{
+                        name: 'Produtividade',
+                        data: [0],
+                        tooltip: {
+                            valueSuffix: ''
+                        }
+                    }]
+
+                },
+
+                // Add some life
+                function(chart) {
+                    if (!chart.renderer.forExport) {
+                        setInterval(function() {
+                            var point = chart.series[0].points[0],
+                                inc = Math.round((Math.random() - 0.5) * 20);
+                            point.update(dataVel);
+                        }, 1000);
+                    }
+                });
+
+            //Velocimetro oxigeno
+            Highcharts.chart('containerOxigeno', {
+
+                    chart: {
+                        type: 'gauge',
+                        plotBackgroundColor: null,
+                        plotBackgroundImage: null,
+                        plotBorderWidth: 0,
+                        plotShadow: false
+                    },
+
+                    title: {
+                        text: 'Velocimentro/Oxigeno'
+                    },
+
+                    pane: {
+                        startAngle: -150,
+                        endAngle: 150,
+                        background: [{
+                            backgroundColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, '#FFF'],
+                                    [1, '#333']
+                                ]
+                            },
+                            borderWidth: 0,
+                            outerRadius: '109%'
+                        }, {
+                            backgroundColor: {
+                                linearGradient: {
+                                    x1: 0,
+                                    y1: 0,
+                                    x2: 0,
+                                    y2: 1
+                                },
+                                stops: [
+                                    [0, '#333'],
+                                    [1, '#FFF']
+                                ]
+                            },
+                            borderWidth: 1,
+                            outerRadius: '107%'
+                        }, {
+                            // default background
+                        }, {
+                            backgroundColor: '#DDD',
+                            borderWidth: 0,
+                            outerRadius: '105%',
+                            innerRadius: '103%'
+                        }]
+                    },
+
+                    // the value axis
+                    yAxis: {
+                        min: 0,
+                        max: 130,
+
+                        minorTickInterval: 'auto',
+                        minorTickWidth: 1,
+                        minorTickLength: 10,
+                        minorTickPosition: 'inside',
+                        minorTickColor: '#666',
+
+                        tickPixelInterval: 30,
+                        tickWidth: 2,
+                        tickPosition: 'inside',
+                        tickLength: 10,
+                        tickColor: '#666',
+                        labels: {
+                            step: 2,
+                            rotation: 'auto'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        plotBands: [{
+                            from: 0,
+                            to: 15,
+                            color: '#55BF3B' // red
+
+                        }, {
+                            from: 15,
+                            to: 35,
+                            color: '#DDDF0D' // yellow
+                        }, {
+                            from: 35,
+                            to: 50,
+                            color: '#DF5353' // greencolor: '#55BF3B' // red
+                        }]
+                    },
+
+                    series: [{
+                        name: 'Produtividade',
+                        data: [0],
+                        tooltip: {
+                            valueSuffix: ''
+                        }
+                    }]
+
+                },
+
+                // Add some life
+                function(chart) {
+                    if (!chart.renderer.forExport) {
+                        setInterval(function() {
+                            var point = chart.series[0].points[0],
+                                inc = Math.round((Math.random() - 0.5) * 20);
+                            point.update(dataVel);
+                        }, 1000);
+                    }
+                });
+
+
+            //----Velocimetro temperatura
+            var gaugeOptions = {
                 chart: {
-                    type: 'gauge',
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false
+                    type: 'solidgauge'
                 },
 
-                title: {
-                    text: 'Velocimentro/Ritmo cardiaco'
-                },
+                title: null,
 
                 pane: {
-                    startAngle: -150,
-                    endAngle: 150,
-                    background: [{
-                        backgroundColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, '#FFF'],
-                                [1, '#333']
-                            ]
-                        },
-                        borderWidth: 0,
-                        outerRadius: '109%'
-                    }, {
-                        backgroundColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, '#333'],
-                                [1, '#FFF']
-                            ]
-                        },
-                        borderWidth: 1,
-                        outerRadius: '107%'
-                    }, {
-                        // default background
-                    }, {
-                        backgroundColor: '#DDD',
-                        borderWidth: 0,
-                        outerRadius: '105%',
-                        innerRadius: '103%'
-                    }]
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+
+                exporting: {
+                    enabled: false
+                },
+
+                tooltip: {
+                    enabled: false
                 },
 
                 // the value axis
                 yAxis: {
-                    min: 0,
-                    max: 130,
-
-                    minorTickInterval: 'auto',
-                    minorTickWidth: 1,
-                    minorTickLength: 10,
-                    minorTickPosition: 'inside',
-                    minorTickColor: '#666',
-
-                    tickPixelInterval: 30,
-                    tickWidth: 2,
-                    tickPosition: 'inside',
-                    tickLength: 10,
-                    tickColor: '#666',
-                    labels: {
-                        step: 2,
-                        rotation: 'auto'
-                    },
+                    stops: [
+                        [0.1, '#55BF3B'], // green
+                        [0.5, '#DDDF0D'], // yellow
+                        [0.9, '#DF5353'] // red
+                    ],
+                    lineWidth: 0,
+                    tickWidth: 0,
+                    minorTickInterval: null,
+                    tickAmount: 2,
                     title: {
-                        text: ''
+                        y: -70
                     },
-                    plotBands: [{
-                        from: 0,
-                        to: 15,
-                        color: '#55BF3B' // red
-
-                    }, {
-                        from: 15,
-                        to: 35,
-                        color: '#DDDF0D' // yellow
-                    }, {
-                        from: 35,
-                        to: 50,
-                        color: '#DF5353' // greencolor: '#55BF3B' // red
-                    }]
-                },
-
-                series: [{
-                    name: 'Produtividade',
-                    data: [0],
-                    tooltip: {
-                        valueSuffix: ''
+                    labels: {
+                        y: 16
                     }
-                }]
+                },
 
-            },
-
-            // Add some life
-            function(chart) {
-                if (!chart.renderer.forExport) {
-                    setInterval(function() {
-                        var point = chart.series[0].points[0],
-                            inc = Math.round((Math.random() - 0.5) * 20);
-                        point.update(dataVel);
-                    }, 1000);
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
                 }
-            });
+            };
 
-        //Velocimetro oxigeno
-        Highcharts.chart('containerOxigeno', {
-
-                chart: {
-                    type: 'gauge',
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false
-                },
-
-                title: {
-                    text: 'Velocimentro/Oxigeno'
-                },
-
-                pane: {
-                    startAngle: -150,
-                    endAngle: 150,
-                    background: [{
-                        backgroundColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, '#FFF'],
-                                [1, '#333']
-                            ]
-                        },
-                        borderWidth: 0,
-                        outerRadius: '109%'
-                    }, {
-                        backgroundColor: {
-                            linearGradient: {
-                                x1: 0,
-                                y1: 0,
-                                x2: 0,
-                                y2: 1
-                            },
-                            stops: [
-                                [0, '#333'],
-                                [1, '#FFF']
-                            ]
-                        },
-                        borderWidth: 1,
-                        outerRadius: '107%'
-                    }, {
-                        // default background
-                    }, {
-                        backgroundColor: '#DDD',
-                        borderWidth: 0,
-                        outerRadius: '105%',
-                        innerRadius: '103%'
-                    }]
-                },
-
-                // the value axis
+            // The speed gauge
+            var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
                 yAxis: {
                     min: 0,
-                    max: 130,
-
-                    minorTickInterval: 'auto',
-                    minorTickWidth: 1,
-                    minorTickLength: 10,
-                    minorTickPosition: 'inside',
-                    minorTickColor: '#666',
-
-                    tickPixelInterval: 30,
-                    tickWidth: 2,
-                    tickPosition: 'inside',
-                    tickLength: 10,
-                    tickColor: '#666',
-                    labels: {
-                        step: 2,
-                        rotation: 'auto'
-                    },
+                    max: 200,
                     title: {
-                        text: ''
-                    },
-                    plotBands: [{
-                        from: 0,
-                        to: 15,
-                        color: '#55BF3B' // red
+                        text: 'Speed'
+                    }
+                },
 
-                    }, {
-                        from: 15,
-                        to: 35,
-                        color: '#DDDF0D' // yellow
-                    }, {
-                        from: 35,
-                        to: 50,
-                        color: '#DF5353' // greencolor: '#55BF3B' // red
-                    }]
+                credits: {
+                    enabled: false
                 },
 
                 series: [{
-                    name: 'Produtividade',
-                    data: [0],
-                    tooltip: {
-                        valueSuffix: ''
-                    }
-                }]
-
-            },
-
-            // Add some life
-            function(chart) {
-                if (!chart.renderer.forExport) {
-                    setInterval(function() {
-                        var point = chart.series[0].points[0],
-                            inc = Math.round((Math.random() - 0.5) * 20);
-                        point.update(dataVel);
-                    }, 1000);
-                }
-            });
-
-
-        //----Velocimetro temperatura
-        var gaugeOptions = {
-            chart: {
-                type: 'solidgauge'
-            },
-
-            title: null,
-
-            pane: {
-                center: ['50%', '85%'],
-                size: '140%',
-                startAngle: -90,
-                endAngle: 90,
-                background: {
-                    backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
-                    innerRadius: '60%',
-                    outerRadius: '100%',
-                    shape: 'arc'
-                }
-            },
-
-            exporting: {
-                enabled: false
-            },
-
-            tooltip: {
-                enabled: false
-            },
-
-            // the value axis
-            yAxis: {
-                stops: [
-                    [0.1, '#55BF3B'], // green
-                    [0.5, '#DDDF0D'], // yellow
-                    [0.9, '#DF5353'] // red
-                ],
-                lineWidth: 0,
-                tickWidth: 0,
-                minorTickInterval: null,
-                tickAmount: 2,
-                title: {
-                    y: -70
-                },
-                labels: {
-                    y: 16
-                }
-            },
-
-            plotOptions: {
-                solidgauge: {
+                    name: 'Speed',
+                    data: [80],
                     dataLabels: {
-                        y: 5,
-                        borderWidth: 0,
-                        useHTML: true
+                        format: '<div style="text-align:center">' +
+                            '<span style="font-size:25px">{y}</span><br/>' +
+                            '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+                            '</div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' km/h'
                     }
-                }
-            }
-        };
+                }]
 
-        // The speed gauge
-        var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 200,
-                title: {
-                    text: 'Speed'
-                }
-            },
+            }));
 
-            credits: {
-                enabled: false
-            },
-
-            series: [{
-                name: 'Speed',
-                data: [80],
-                dataLabels: {
-                    format: '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
+            // The RPM gauge
+            var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: 5,
+                    title: {
+                        text: 'RPM'
+                    }
                 },
-                tooltip: {
-                    valueSuffix: ' km/h'
-                }
-            }]
 
-        }));
+                series: [{
+                    name: 'RPM',
+                    data: [1],
+                    dataLabels: {
+                        format: '<div style="text-align:center">' +
+                            '<span style="font-size:25px">{y:.1f}</span><br/>' +
+                            '<span style="font-size:12px;opacity:0.4">' +
+                            '* 1000 / min' +
+                            '</span>' +
+                            '</div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' revolutions/min'
+                    }
+                }]
 
-        // The RPM gauge
-        var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 5,
-                title: {
-                    text: 'RPM'
-                }
-            },
+            }));
 
-            series: [{
-                name: 'RPM',
-                data: [1],
-                dataLabels: {
-                    format: '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y:.1f}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">' +
-                        '* 1000 / min' +
-                        '</span>' +
-                        '</div>'
-                },
-                tooltip: {
-                    valueSuffix: ' revolutions/min'
-                }
-            }]
+            // Bring life to the dials
+            setInterval(function() {
+                // Speed
+                var point,
+                    newVal,
+                    inc;
 
-        }));
+                if (chartSpeed) {
+                    point = chartSpeed.series[0].points[0];
+                    inc = Math.round((Math.random() - 0.5) * 100);
+                    newVal = point.y + inc;
 
-        // Bring life to the dials
-        setInterval(function() {
-            // Speed
-            var point,
-                newVal,
-                inc;
+                    if (newVal < 0 || newVal > 200) {
+                        newVal = point.y - inc;
+                    }
 
-            if (chartSpeed) {
-                point = chartSpeed.series[0].points[0];
-                inc = Math.round((Math.random() - 0.5) * 100);
-                newVal = point.y + inc;
-
-                if (newVal < 0 || newVal > 200) {
-                    newVal = point.y - inc;
+                    point.update(newVal);
                 }
 
-                point.update(newVal);
-            }
+                // RPM
+                if (chartRpm) {
+                    point = chartRpm.series[0].points[0];
+                    inc = Math.random() - 0.5;
+                    newVal = point.y + inc;
 
-            // RPM
-            if (chartRpm) {
-                point = chartRpm.series[0].points[0];
-                inc = Math.random() - 0.5;
-                newVal = point.y + inc;
+                    if (newVal < 0 || newVal > 5) {
+                        newVal = point.y - inc;
+                    }
 
-                if (newVal < 0 || newVal > 5) {
-                    newVal = point.y - inc;
+                    point.update(newVal);
                 }
-
-                point.update(newVal);
-            }
-        }, 2000);
+            }, 2000);
+        });
     </script>
 
 
 
     <!--Se necesita conexión a Internet-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js" integrity="sha256-uVEHWRIr846/vAdLJeybWxjPNStREzOlqLMXjW/Saeo=" crossorigin="anonymous"></script>
+    <script src="./dev/JS/lib/HighChart/chart.min.js"></script>
     <!--
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js" integrity="sha256-uVEHWRIr846/vAdLJeybWxjPNStREzOlqLMXjW/Saeo=" crossorigin="anonymous"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" charset="utf-8"></script>
 -->
     <script src="./dev/JS/lib/soocket/socket.io.js"></script>
 
     <script type="text/javascript">
-        const socket = io();
+        $(document).ready(function() {
+
+            const socket = io();
+
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '');
+            }
+            //------------------------------------ CHART.JS
+            var ctx = document.getElementById('myCanvas').getContext('2d');
+            var ctx02 = document.getElementById('canvas02').getContext('2d');
+            var ctx03 = document.getElementById('canvas03').getContext('2d');
 
 
+            //heart Rate
+            var config = {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Heart Rate',
+                        backgroundColor: "#FF3333",
+                        borderColor: "#FF3333",
+                        data: [],
+                        fill: false,
+                        radius: 2,
 
-        function escapeRegExp(string) {
-            return string.replace(/[.*+?^${}()|[\]\\]/g, '');
-        }
-        //------------------------------------ CHART.JS
-        var ctx = document.getElementById('myCanvas').getContext('2d');
-        var ctx02 = document.getElementById('canvas02').getContext('2d');
-        var ctx03 = document.getElementById('canvas03').getContext('2d');
-
-
-        //heart Rate
-        var config = {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Heart Rate',
-                    backgroundColor: "#FF3333",
-                    borderColor: "#FF3333",
-                    data: [],
-                    fill: false,
-                    radius: 2,
-
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Sensor MAX30100 PulseOximeter'
+                    }]
                 },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    y: {
-                        max: 200,
-                        min: -100,
-                        ticks: {
-                            stepSize: 1
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Sensor MAX30100 PulseOximeter'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        y: {
+                            max: 200,
+                            min: -100,
+                            ticks: {
+                                stepSize: 1
+                            }
+
                         }
 
                     }
-
                 }
-            }
-        };
-        //Oxigeno
-        var configOxygen = {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'bpm / SpO2',
-                    backgroundColor: "#0831FC",
-                    borderColor: "#0831FC",
-                    data: [],
-                    fill: false,
-                    radius: 2,
-
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Sensor MAX30100 PulseOximeter'
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    y: {
-                        max: 110,
-                        min: -0,
-                        ticks: {
-                            stepSize: 1
-                        }
-                    }
-
-                }
-            }
-        };
-
-
-
-
-
-        //Temperature
-        var configTemp = {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: 'Ambient Temp °C',
-                    backgroundColor: "#8D08FC",
-                    borderColor: "#8D08FC",
-                    data: [],
-                    fill: false,
-                    radius: 2,
-
-                }, {
-                    label: 'Person Temp °C',
-                    backgroundColor: "#FCA308",
-                    borderColor: "#FCA308",
-                    data: [],
-                    fill: false,
-                    radius: 2,
-
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Sensor MLX90614 Temperature'
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-
-                    y: {
-                        max: 100, //<<<<<<<<<<<<<---------------CAMBIAR
-                        min: -40,
-                        ticks: {
-                            stepSize: 1
-                        }
-                    }
-                }
-            }
-        };
-
-
-        let counter = 0;
-
-        myLine = new Chart(ctx, config);
-        myLine2 = new Chart(ctx02, configOxygen);
-        myLine3 = new Chart(ctx03, configTemp);
-
-
-        socket.on('arduino:data', function(dataSerial) {
-            let info = dataSerial.value.toString();
-            let clear = escapeRegExp(info).replace('rn', '').replace('"', '').replace('"', '');
-            let dataArduino = clear.split(',');
-            //   console.log(parseFloat(dataArduino[0]) + 1);
-            let heartRate = parseFloat(dataArduino[0]);
-
-            //RitmoCardiaco
-            dataVel = heartRate;
-
-            myLine.data.labels.push(counter);
-            myLine.data.datasets[0].data.push(heartRate);
-            myLine.update();
-
+            };
             //Oxigeno
-            myLine2.data.labels.push(counter);
-            myLine2.data.datasets[0].data.push(dataArduino[1]);
-            myLine2.update();
+            var configOxygen = {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'bpm / SpO2',
+                        backgroundColor: "#0831FC",
+                        borderColor: "#0831FC",
+                        data: [],
+                        fill: false,
+                        radius: 2,
 
-            //Temperatura Corporal y Ambiental
-            myLine3.data.labels.push(counter);
-            myLine3.data.datasets[0].data.push(dataArduino[2]);
-            myLine3.data.datasets[1].data.push(dataArduino[3]);
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Sensor MAX30100 PulseOximeter'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        y: {
+                            max: 110,
+                            min: -0,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
 
-            myLine3.update();
+                    }
+                }
+            };
 
 
-            counter++;
 
-        });
 
-        var appOk = document.getElementById('appRun');
-        socket.on('arduino:close', function(dataSerial) {
 
-            if (dataSerial) {
-                appOk.classList.remove('alert-primary');
-                appOk.classList.add('alert-danger');
-            }
+            //Temperature
+            var configTemp = {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Ambient Temp °C',
+                        backgroundColor: "#8D08FC",
+                        borderColor: "#8D08FC",
+                        data: [],
+                        fill: false,
+                        radius: 2,
+
+                    }, {
+                        label: 'Person Temp °C',
+                        backgroundColor: "#FCA308",
+                        borderColor: "#FCA308",
+                        data: [],
+                        fill: false,
+                        radius: 2,
+
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Sensor MLX90614 Temperature'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+
+                        y: {
+                            max: 100, //<<<<<<<<<<<<<---------------CAMBIAR
+                            min: -40,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            let counter = 0;
+
+            myLine = new Chart(ctx, config);
+            myLine2 = new Chart(ctx02, configOxygen);
+            myLine3 = new Chart(ctx03, configTemp);
+
+
+            socket.on('arduino:data', function(dataSerial) {
+                let info = dataSerial.value.toString();
+                let clear = escapeRegExp(info).replace('rn', '').replace('"', '').replace('"', '');
+                let dataArduino = clear.split(',');
+                //   console.log(parseFloat(dataArduino[0]) + 1);
+                let heartRate = parseFloat(dataArduino[0]);
+
+                //RitmoCardiaco
+                dataVel = heartRate;
+
+                myLine.data.labels.push(counter);
+                myLine.data.datasets[0].data.push(heartRate);
+                myLine.update();
+
+                //Oxigeno
+                myLine2.data.labels.push(counter);
+                myLine2.data.datasets[0].data.push(dataArduino[1]);
+                myLine2.update();
+
+                //Temperatura Corporal y Ambiental
+                myLine3.data.labels.push(counter);
+                myLine3.data.datasets[0].data.push(dataArduino[2]);
+                myLine3.data.datasets[1].data.push(dataArduino[3]);
+
+                myLine3.update();
+
+
+                counter++;
+
+            });
+
+            var appOk = document.getElementById('appRun');
+            socket.on('arduino:close', function(dataSerial) {
+
+                if (dataSerial) {
+                    appOk.classList.remove('alert-primary');
+                    appOk.classList.add('alert-danger');
+                }
+            });
+
         });
     </script>
 
 </body>
+
+</html>
 
 </html>
