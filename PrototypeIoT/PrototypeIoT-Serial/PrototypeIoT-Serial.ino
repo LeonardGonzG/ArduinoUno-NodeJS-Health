@@ -34,9 +34,9 @@ float temp_objC = 0;
 
 
 void setup() {
-    
-  pinMode(9, OUTPUT); 
+
   Serial.begin(2000000);
+ 
  
   /*esp8266.begin(115200);//115200
   
@@ -45,6 +45,7 @@ void setup() {
   sendCommand("AT+CWJAP=\""+ AP +"\",\""+ PASS +"\"",20,"OK");
   */
   
+    pinMode(9, OUTPUT); 
     Serial.println("Adafruit MLX90614 test");  
     Serial.print("Initializing pulse oximeter..");
  
@@ -91,15 +92,14 @@ void loop() {
       oxygen_saturation = -1;
       stateSend = false;
 
+     // delay(1000);
+
 }
 
 void showDataSend(){
-  
- /* Serial.println("msg:{ heartRate: "+String(heart_rate)+
-                + ", oxygen: "+String(oxygen_saturation) + 
-                ", tempAmbC: "+String(temp_ambC)+
-                ", tempObjC: "+String(temp_objC)+'}' );*/
-				
+
+
+		digitalWrite(9, LOW);		
 Serial.println(String(heart_rate)+
                 ','+String(oxygen_saturation) + 
                 ','+String(temp_ambC)+
@@ -108,12 +108,8 @@ Serial.println(String(heart_rate)+
  /*
   //[heartRate, oxygen, tempAmbC, tempObjC]
   
-  Serial.println(String(getSensorData())+
-                ','+String(getSensorData()) + 
-                ','+String(getSensorData())+
-                ','+String(getSensorData()));
- 
  */
+  digitalWrite(9, HIGH);
   
 }
 /*
