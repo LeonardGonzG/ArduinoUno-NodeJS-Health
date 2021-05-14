@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>IoT-Health</title>
 
     <link rel="stylesheet" type="text/css" href="./dev/css/main.css">
     <script src="./dev/JS/lib/jquery.min.js"></script>
@@ -165,10 +165,9 @@
                             <div class="row">
                                 <div class="col-3">
                                     <br><br>
-                                    <!--
-        
-                                        <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
-                                    -->
+                                    <div class="alert alert-warning" style="min-width: 310px; max-width: 310px; height: 80px; margin: 0 auto">
+                                        <h1 id="showDataRitmoCard">81 <small>bpm</small> </h1>
+                                    </div>
 
                                     <div id="container" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
                                 </div>
@@ -184,13 +183,15 @@
                                 <path d="M7 5a4.5 4.5 0 0 1 4.473 4h.027a2.5 2.5 0 0 1 0 5H3a3 3 0 0 1-.247-5.99A4.502 4.502 0 0 1 7 5zm3.5 4.5a3.5 3.5 0 0 0-6.89-.873.5.5 0 0 1-.51.375A2 2 0 1 0 3 13h8.5a1.5 1.5 0 1 0-.376-2.953.5.5 0 0 1-.624-.492V9.5z"/>
                               </svg>&nbsp;&nbsp;Saturación de oxigeno</h3>
                             <h4>Sensor MAX30100 PulseOximeter</h4>
+
+
                             <div class="row">
                                 <div class="col-3">
                                     <br><br>
-                                    <!--
-        
-                                        <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
-                                    -->
+
+                                    <div class="alert alert-warning" style="min-width: 310px; max-width: 310px; height: 80px; margin: 0 auto">
+                                        <h1 id="showDataSaturacion">98% <small>SpO2</small> </h1>
+                                    </div>
                                     <div id="containerOxigeno" style="min-width: 310px; max-width: 400px; height: 300px; margin: 0 auto"></div>
 
                                 </div>
@@ -211,11 +212,6 @@
                             <div class="row">
                                 <div class="col-3">
                                     <br><br>
-                                    <!--
-        
-                                        <img src="./dev/img/9849.jpg" alt="..." class="img-thumbnail">
-                                    -->
-                                    <h5>Tempera en °C</h5>
                                     <div id="container-speed" style="min-width: 100px; max-width: 1000px; height: 200px; margin: 0 auto"></div>
                                     <div id="container-rpm" style="min-width: 100x; max-width: 1000px; height: 200px; margin: 0 auto"></div>
                                 </div>
@@ -269,27 +265,28 @@
 
     <script src="./dev/JS/lib/chart.js/dist/Chart.min.js"></script>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-    <!--
-        <script src="./dev/JS/lib/HighChart/highcharts.js"></script>
+    <script src="./dev/JS/lib/HighChart/highcharts.js"></script>
     <script src="./dev/JS/lib/HighChart/highcharts-more.js"></script>
     <script src="./dev/JS/lib/HighChart/exporting.js"></script>
 
+    <!--
+        
+<script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
       
     -->
 
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-    <!--
-         <script src="./dev/JS/lib/HighChart/solid-gauge.js"></script>
+    <script src="./dev/JS/lib/HighChart/solid-gauge.js"></script>
     <script src="./dev/JS/lib/HighChart/export-data.js"></script>
     <script src="./dev/JS/lib/HighChart/accessibility.js"></script>
 
+
+    <!--
+          <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
        
     -->
 
@@ -534,7 +531,7 @@
                         borderColor: "#FF3333",
                         data: [],
                         fill: false,
-                        radius: 2,
+                        radius: 0.5,
 
                     }]
                 },
@@ -554,10 +551,10 @@
                     },
                     scales: {
                         y: {
-                            max: 200,
-                            min: -100,
+                            max: 130,
+                            min: 10,
                             ticks: {
-                                stepSize: 1
+                                stepSize: 0.5
                             }
 
                         }
@@ -576,7 +573,7 @@
                         borderColor: "#0831FC",
                         data: [],
                         fill: false,
-                        radius: 2,
+                        radius: 0.5,
 
                     }]
                 },
@@ -597,9 +594,9 @@
                     scales: {
                         y: {
                             max: 110,
-                            min: -0,
+                            min: 80,
                             ticks: {
-                                stepSize: 1
+                                stepSize: 0.5
                             }
                         }
 
@@ -622,7 +619,7 @@
                         borderColor: "#8D08FC",
                         data: [],
                         fill: false,
-                        radius: 2,
+                        radius: 0.5,
 
                     }, {
                         label: 'Person Temp °C',
@@ -630,7 +627,7 @@
                         borderColor: "#FCA308",
                         data: [],
                         fill: false,
-                        radius: 2,
+                        radius: 0.5,
 
                     }]
                 },
@@ -651,10 +648,10 @@
                     scales: {
 
                         y: {
-                            max: 100, //<<<<<<<<<<<<<---------------CAMBIAR
-                            min: -40,
+                            max: 70, //<<<<<<<<<<<<<---------------CAMBIAR
+                            min: 0,
                             ticks: {
-                                stepSize: 1
+                                stepSize: 0.5
                             }
                         }
                     }
@@ -683,10 +680,10 @@
                 let tempObjC = parseFloat(dataArduino[3]);
 
                 //RitmoCardiaco
-                setHeartRate(Math.floor(heartRate));
-                setHearOxygen(Math.floor(oxygen));
-                setTempAmbC(Math.floor(tempAmbC));
-                setTempObjC(Math.floor(tempObjC));
+                setHeartRate(heartRate);
+                setHearOxygen(oxygen);
+                setTempAmbC(tempAmbC);
+                setTempObjC(tempObjC);
 
                 myLine.data.labels.push(counter);
                 myLine.data.datasets[0].data.push(heartRate);
@@ -878,7 +875,7 @@
                     },
 
                     series: [{
-                        name: 'Produtividade',
+                        name: 'bpm',
                         data: [0],
                         tooltip: {
                             valueSuffix: ''
@@ -1003,7 +1000,7 @@
                     },
 
                     series: [{
-                        name: 'Produtividade',
+                        name: 'SpO2',
                         data: [0],
                         tooltip: {
                             valueSuffix: ''
@@ -1095,7 +1092,7 @@
                 min: -10,
                 max: 80,
                 title: {
-                    text: 'Temperatura ambiental °C'
+                    text: 'Temperatura ambiental'
                 }
             },
 
