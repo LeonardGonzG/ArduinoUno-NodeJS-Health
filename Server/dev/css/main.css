@@ -365,3 +365,54 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+
+
+/*Deconection preloader*/
+
+.containerPageEnd {
+    position: fixed;
+    top: 0;
+    background: rgb(255, 255, 255);
+    color: rgba(241, 16, 0, 0.637);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.preloaderEnd {
+    margin: auto;
+    width: 550px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.582);
+    position: relative;
+}
+
+.preloaderEnd:before {
+    content: "";
+    position: absolute;
+    background: rgb(100, 8, 8);
+    width: 0;
+    height: 30px;
+    animation: preloader 10s infinite;
+}
+
+.preloaderEnd p {
+    margin: 0;
+    line-height: 30px;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes preloaderEnd {
+    90% {
+        width: 100%;
+        opacity: 1;
+    }
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
