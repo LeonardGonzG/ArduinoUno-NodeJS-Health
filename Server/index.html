@@ -35,6 +35,7 @@
             <h1>Prototipo de dispositivo de biotelemetría para equipo de rescate</h1><br>
             <strong>Autor.</strong> Leonardo Gonzalez Gutierrez <br>
             <strong>Programa.</strong> Ingeniería en Sistemas y Computación <br> Universidad de Caldas <br><br>
+            <input id="codDevice" placeholder="Código de dispositivo" type="text">
             <button id="goDevice">Conectar</button>
         </div>
     </div>
@@ -68,8 +69,8 @@
 
     <div class="containerPageEnd d-none" id="containerPageEnd">
         <br><br><br><br><br>
-        <div class="d-flex justify-content-center"> <img src="./dev/img/rolling.gif" alt="" srcset=""></div>
-
+        <div class="d-flex justify-content-center"> <img src="./dev/img/outpage.gif" height="100px" width="100px"></div>
+        <br>
         <div class="preloaderEnd">
             <p>Desconectando...</p>
         </div>
@@ -114,10 +115,10 @@
                         <div class="row">
                             <h2>Prototipo de dispositivo de biotelemetría para equipo de rescate</h2>
                             <div class="col">
-                                <button type="button" id="offDevice" class="btn btn-warning btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                <button style="border-radius: 50%;" type="button" id="offDevice" class="btn btn-warning btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                     <path d="M7.5 1v7h1V1h-1z"/>
                                     <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"/>
-                                  </svg>&nbsp;&nbsp; Desconectar</button>
+                                  </svg></button>
                             </div>
                         </div>
                     </div>
@@ -274,17 +275,96 @@
                 <h3>Información</h3>
                 <button id="accordionOne" class="accordion"><strong>Ritmo Cardiaco</strong></button>
                 <div class="panelAccordion">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="row">
+                        <div class="col-4">
+                            <br>
+                            <p>
+                                El pulso es la expansión transitoria de una arteria y constituye un índice de frecuencia y ritmos cardiacos. La frecuencia cardiaca es el número de latidos del corazón por minuto. Por cada latido, se contrae el ventrículo izquierdo y expulsa la sangre
+                                al interior de la aorta. Esta expulsión enérgica de la sangre origina una onda que se transmite a la periferia del cuerpo a través de las arterias
+
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <p>
+                                <mark>
+                                    Las cifras normales de la frecuencia del pulso en el paciente adulto hombre es de 70 por minuto, y en la mujer adulta es de 80 por minuto <strong>(oscila entre 60 y 80 por minuto).</strong>
+
+                                </mark>
+                            </p>
+
+                            <strong>Bradicardia:</strong> Disminución de los latidos cardiacos con una frecuencia menor de 60 por minuto. <br>
+                            <strong>Taquicardia: </strong>Frecuencia cardiaca superior a los 100 latidos por minuto.
+
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <iframe width="350" height="250" src="https://www.youtube.com/embed/GMBSU-2GK3E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <sup>https://www.pisa.com.mx/publicidad/portal/enfermeria/manual/4_1_1.htm#:~:text=Los%20signos%20vitales%20son%20par%C3%A1metros,evoluci%C3%B3n%2C%20ya%20sea%20positiva%20o</sup>
                 </div>
                 <br>
                 <button id="accordionTwo" class="accordion"><strong>Saturación</strong></button>
                 <div class="panelAccordion">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="row">
+                        <div class="col-4">
+                            <br>
+                            <p>
+                                El nivel de oxígeno en la sangre es la cantidad de oxígeno que circula en la sangre. La mayor parte del oxígeno es transportado por los glóbulos rojos, los cuales recolectan oxígeno de los pulmones y lo envían a todas las partes del cuerpo.
+
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <div class="alert-primary">
+                                <p>
+                                    Para la saturación de oxígeno, su porcentaje debe estar entre <strong>95 y 100%</strong>
+                                </p>
+
+                            </div>
+                            <p>
+                                Los valores por debajo del 90 por ciento se consideran bajos <strong>(hipoxemia)</strong> e indican la necesidad de oxígeno suplementario. Sus síntomas incluyen dificultad respiratoria severa, aumento de la frecuencia cardíaca
+                                y dolor torácico.
+                            </p>
+
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <iframe width="350" height="250" src="https://www.youtube.com/embed/B75kBvjJink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <sup>https://www.outspot.es/es/Pulsioxmetro-para-la-frecuencia-cardaca-y-saturacin-de-oxgeno#:~:text=Para%20la%20saturaci%C3%B3n%20de%20ox%C3%ADgeno,card%C3%ADaca%20despu%C3%A9s%20de%20hacer%20ejercicio.</sup>
+                    <sup>https://ma.com.pe/que-es-un-oximetro-de-pulso-y-como-interpretar-sus-valores</sup>
                 </div>
                 <br>
                 <button id="accordionThree" class="accordion"><strong>Temperatura corporal y ambiental</strong></button>
                 <div class="panelAccordion">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div class="row">
+                        <div class="col-4">
+                            <br>
+                            <p>
+                                Se refiere al grado de calor o de frío, expresados en término de una escala específica. La temperatura corporal representa un equilibrio entre el calor producido por el cuerpo y su pérdida. Cuando la producción de calor es equivalente a la pérdida de
+                                temperatura corporal, ésta última se mantiene constante en condiciones normales.
+                            </p>
+
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <div class="alert-primary">
+                                El control de la temperatura del cuerpo está regulada en el hipotálamo, que mantiene constante la temperatura central. La temperatura normal media de un paciente adulto está entre <strong>36.7 y 37ºC.</strong>
+                            </div>
+                            <strong>Hipertermia:</strong> Incremento importante de la temperatura corporal (más de 39ºC). <br>
+                            <strong>Hipotermia:</strong> Temperatura corporal menor de la normal (menos de 36ºC).
+
+                        </div>
+                        <div class="col-4">
+                            <br>
+                            <iframe width="350" height="250" src="https://www.youtube.com/embed/tMvXOdY_8dM?start=115" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <sup>https://www.pisa.com.mx/publicidad/portal/enfermeria/manual/4_1_1.htm#:~:text=Los%20signos%20vitales%20son%20par%C3%A1metros,evoluci%C3%B3n%2C%20ya%20sea%20positiva%20o</sup>
                 </div>
 
 
@@ -382,46 +462,54 @@
 
 
             var btnCerrarApp = document.getElementById('offDevice');
-
             var sectionHead = document.getElementById('appRun');
 
+
             btnCerrarApp.addEventListener('click', function() {
-                sectionHome.classList.remove('d-block');
-                sectionHome.classList.add('d-none');
-                sectionHead.classList.add('d-none');
 
-                let container = document.getElementById('containerPageEnd');
-                container.classList.remove('d-none');
-                container.classList.add('d-block');
+                let opc = confirm("Deseas desconectarse del dispositivo?");
+                if (opc) {
+                    sectionHome.classList.remove('d-block');
+                    sectionHome.classList.add('d-none');
+                    sectionHead.classList.add('d-none');
 
-                setTimeout(function() {
-                    location.reload();
-                }, 3000);
+                    let container = document.getElementById('containerPageEnd');
+                    container.classList.remove('d-none');
+                    container.classList.add('d-block');
 
-
-
+                    setTimeout(function() {
+                        location.reload();
+                    }, 5000);
+                }
             });
 
             btnAbrirApp.addEventListener('click', function() {
 
-                let container = document.getElementById('containerPage');
-                container.classList.remove('d-none');
-                container.classList.add('d-block');
+                let inputCod = $('#codDevice').val();
+                //DEV01
+                if (inputCod == 'DEV01') {
+                    let container = document.getElementById('containerPage');
+                    container.classList.remove('d-none');
+                    container.classList.add('d-block');
 
-                setTimeout(function() {
-                    container.classList.remove('d-block');
-                    container.classList.add('d-none');
+                    setTimeout(function() {
+                        container.classList.remove('d-block');
+                        container.classList.add('d-none');
 
-                    sectionDevice.classList.remove('d-none');
-                    sectionDevice.classList.add('d-block');
+                        sectionDevice.classList.remove('d-none');
+                        sectionDevice.classList.add('d-block');
 
-                    alert('Nos hemos conectado con el dispositivo. Bienvenido!');
-                    // document.body.style.overflowY = "visible"; // despueés de cargar le devolvemos el scroll
-                }, 5000);
+                        alert('Nos hemos conectado con el dispositivo. Bienvenido!');
+                        // document.body.style.overflowY = "visible"; // despueés de cargar le devolvemos el scroll
+                    }, 5000);
 
 
-                sectionHome.classList.remove('d-block');
-                sectionHome.classList.add('d-none');
+                    sectionHome.classList.remove('d-block');
+                    sectionHome.classList.add('d-none');
+
+                } else {
+                    alert('No encontramos el dispositivo');
+                }
 
             });
 
@@ -724,6 +812,11 @@
             myLine2 = new Chart(ctx02, configOxygen);
             myLine3 = new Chart(ctx03, configTemp);
 
+            // <h1 id="showDataRitmoCard">81 <small>bpm</small> </h1>
+            var dataCardio = document.getElementById('showDataRitmoCard');
+
+            // <h1 id="showDataSaturacion">98% <small>SpO2</small> </h1>
+            var dataSaturacion = document.getElementById('showDataSaturacion');
 
             socket.on('arduino:data', function(dataSerial) {
                 let info = dataSerial.value.toString();
@@ -743,6 +836,9 @@
                 setHearOxygen(oxygen);
                 setTempAmbC(tempAmbC);
                 setTempObjC(tempObjC);
+
+                dataCardio.innerHTML = '' + heartRate + '&nbsp;<small>bpm</small>';
+                dataSaturacion.innerHTML = '' + oxygen + '&nbsp;<small>SpO2</small>';
 
                 myLine.data.labels.push(counter);
                 myLine.data.datasets[0].data.push(heartRate);
@@ -1161,7 +1257,7 @@
 
             series: [{
                 name: 'Speed',
-                data: [80],
+                data: [27],
                 dataLabels: {
                     format: '<div style="text-align:center">' +
                         '<span style="font-size:25px">{y}</span><br/>' +
@@ -1187,7 +1283,7 @@
 
             series: [{
                 name: 'RPM',
-                data: [1],
+                data: [37],
                 dataLabels: {
                     format: '<div style="text-align:center">' +
                         '<span style="font-size:25px">{y:.1f}</span><br/>' +
