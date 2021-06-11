@@ -5,7 +5,7 @@
 
 #define RX 2
 #define TX 3  
-#define REPORTING_PERIOD_MS     500
+#define REPORTING_PERIOD_MS     300
 
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 PulseOximeter pox;
